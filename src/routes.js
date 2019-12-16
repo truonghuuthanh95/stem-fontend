@@ -12,6 +12,7 @@ import STEMSubmition from './views/Teacher/STEMSubmition'
 import STEMViewDetail from './views/Admin/STEMViewDetail'
 import GuestHome from './views/Guest/Home'
 import GuestSTEMDetail from './views/Guest/STEMDetail'
+import STEMUpdate from './views/Teacher/STEMUpdate'
 var routes = [
   // {
   //   path: "/dashboard",
@@ -95,6 +96,13 @@ var routes = [
     name: "NỘP BÀI LÀM",
     icon: "tim-icons icon-world",
     component: STEMSubmition,
+    layout: "/admin"
+  },
+  {
+    path: "/stempostupdate/:stemPostId",
+    name: "CẬP NHẬT STEM",
+    icon: "tim-icons icon-world",
+    component: STEMUpdate,
     layout: "/admin"
   },
   {

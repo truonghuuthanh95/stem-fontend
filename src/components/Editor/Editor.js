@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
@@ -27,9 +26,18 @@ function uploadImageCallBack(file) {
 class EditorContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty()
-    };
+    const contentBlock = htmlToDraft(props.contents);
+    console.log(props.contents);
+
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(
+        contentBlock.contentBlocks
+      );
+      const editorState = EditorState.createWithContent(contentState);
+      this.state = {
+        editorState
+      };
+    }
   }
 
   onEditorStateChange = editorState => {
@@ -38,7 +46,9 @@ class EditorContainer extends Component {
       {
         editorState
       },
-      this.props.handleChangeContents(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())))
+      this.props.handleChangeContents(
+        draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+      )
     );
   };
 
@@ -51,6 +61,7 @@ class EditorContainer extends Component {
           editorClassName="demo-editor"
           editorState={editorState}
           onEditorStateChange={this.onEditorStateChange}
+          defaultContentState={this.state.editorState}
           toolbar={{
             options: [
               "inline",

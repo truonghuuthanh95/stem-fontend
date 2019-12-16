@@ -15,6 +15,7 @@ import EditorContainer from "../../components/Editor/Editor";
 import ErrorInput from "../../components/Error/ErrorInput";
 import { createStemPost } from "../../services/STEMPostService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { getSTEMPostById } from "../../services/STEMPostService";
 const ValidationSchema = Yup.object().shape({
   topic: Yup.string()
     .max(100, "Tối đa 200 kí tự")
@@ -30,15 +31,28 @@ class STEMSubmition extends Component {
     super(props);
     this.state = {
       postDetail: "",
+      sTEMPost: ""
     };
   }
+
+  async componentDidMount() {
+      const {stemPostId} = this.props.match.params;
+      if (stemPostId) {
+          const data = await getSTEMPostById(stemPostId).then(res => res.data);
+          this.setState({sTEMPost: data.Results, postDetail: data.Results.PostDetail});
+      }
+  }
+  
 
   handleChangeContents = postDetail => {
     console.log(postDetail);
     this.setState({ postDetail });
   };
-
   render() {
+      const {sTEMPost} = this.state
+      if (!sTEMPost) {
+          return <h1>loading</h1>
+      }
     return (
       <>
         <div className="content">
@@ -48,9 +62,9 @@ class STEMSubmition extends Component {
                 <CardBody>
                   <Formik
                     initialValues={{
-                      topic: "",
+                      topic: this.state.sTEMPost.Topic,
                       avatarPost: "",
-                      summary: ""
+                      summary: this.state.sTEMPost.Summary
                     }}
                     validationSchema={ValidationSchema}
                     onSubmit={async (values, { setSubmitting }) => {
@@ -146,10 +160,12 @@ class STEMSubmition extends Component {
                         </FormGroup>
 
                         <h4 className="title">Nội dung</h4>
+
                         <EditorContainer
                           handleChangeContents={this.handleChangeContents}
-                          contents={`<p>Trình bày nội dung ở đây 😀</p>`}
+                          contents={this.state.postDetail}
                         />
+
                         <Button
                           className="btn-fill"
                           color="primary"
