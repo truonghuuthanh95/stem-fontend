@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import { Row, Col, Media, Card, CardBody, CardText, Button } from "reactstrap";
-import { getSTEMPosts } from "../../services/STEMPostService";
+import { getSTEMPlans } from "../../services/STEMPlanService";
 import { Link } from "react-router-dom";
+import banner from "../../assets/img/STEM2_Final.png";
+import { IMAGE_BASE_URL } from '../../services/contanst'
 export default class Home extends Component {
   constructor(props, context) {
     super(props, context);
@@ -11,7 +14,7 @@ export default class Home extends Component {
   }
 
   async componentDidMount() {
-    const data = await getSTEMPosts().then(res => res.data);
+    const data = await getSTEMPlans().then(res => res.data);
     this.setState({ sTEMPosts: data.Results });
   }
 
@@ -28,9 +31,29 @@ export default class Home extends Component {
             paddingLeft: 0
           }}
         >
+          <div className="mb-4">
+            <img src={banner} />
+          </div>
           <Row>
             <Col md={{ size: 8, offset: 2 }}>
               <h2 className="title">Bài viết</h2>
+              <h4>
+                <NavLink
+                  to="/"
+                  activeClassName="text-primary"
+                  className="title"
+                >
+                  Kế hoạch
+                </NavLink>{" "}
+                /{" "}
+                <NavLink
+                  to="/"
+                  activeClassName="text-primary"
+                  className="title"
+                >
+                  Kế hoạch
+                </NavLink>
+              </h4>
               {sTEMPosts.map((s, index) => (
                 <Card className="card-user" key={index}>
                   <CardBody>
@@ -39,7 +62,7 @@ export default class Home extends Component {
                       <Link to={`/guest/stemdetail/${s.Id}`}>
                         <Media left>
                           <img
-                            src={require("../../assets/img/james.jpg")}
+                            src={`${IMAGE_BASE_URL + s.AvatarImage}`}
                             width="250"
                             height="200"
                             className="mr-3"

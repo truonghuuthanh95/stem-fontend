@@ -1,0 +1,13 @@
+.banner {
+    background: url(../img/0475a3d18f0976572f18.jpg) no-repeat 0px 0px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    min-height: 500px;
+    /* max-height: 500px; */
+    position: relative;
+    text-align: center;
+    padding: 3em 0 0;
+}

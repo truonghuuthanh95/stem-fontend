@@ -19,7 +19,7 @@ export default class STEMDetail extends Component {
             <p className="text-info mb-4">
               <span>
                 {moment(sTEMPost.CreatedAt).format("HH giờ mm ngày DD/MM/YYYY")}
-                , Lượt xem: ...
+                , Lượt xem: 100
               </span>
             </p>
             <blockquote

@@ -6,7 +6,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import Footer from "components/Footer/Footer.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import AdminNavbar from '../../components/Navbars/AdminNavbar'
-import routes from "routes.js";
+import routes from "../../routes/guestRoutes";
 
 var ps;
 class Guest extends Component {
@@ -53,6 +53,7 @@ class Guest extends Component {
       if (prop.layout === "/guest") {
         return (
           <Route
+            exact
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}

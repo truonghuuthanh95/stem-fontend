@@ -4,17 +4,10 @@ import {
   Col,
   Card,
   CardBody,
-  CardText,
-  CardFooter,
-  Button,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler
-} from "reactstrap";
+  CardText} from "reactstrap";
 import { Link } from "react-router-dom";
-import stemLogo from "../../assets/img/stemlogo.jpg";
-import logoAdmin from '../../assets/img/anime6.png';
-import logoTeacher from '../../assets/img/anime3.png';
+import logoAdmin from '../../../assets/img/anime6.png';
+import logoTeacher from '../../../assets/img/anime3.png';
 export default class Index extends Component {
   constructor(props) {
     super(props);
@@ -23,12 +16,12 @@ export default class Index extends Component {
         {
           name: "GIÁO VIÊN",
           image: logoTeacher,
-          link: "/guest/login/teacher"
+          link: "/guest/loginteacher"
         },
         {
           name: "CÁN BỘ QUẢN LÝ",
           image: logoAdmin,
-          link: "/guest/login/admin"
+          link: "/guest/loginadmin"
         }
       ]
     };
@@ -50,7 +43,7 @@ export default class Index extends Component {
             <Col md={{ size: 8, offset: 2 }}>
               <Row>
                 {this.state.role.map((s, index) => (
-                  <Col key={index}>
+                  <Col sm="6" xs="12" key={index}>
                     <Card className="card-user">
                       <CardBody>
                         <CardText />

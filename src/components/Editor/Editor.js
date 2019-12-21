@@ -3,12 +3,12 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
+import { BASE_URL, UPLOAD_IMAGE_EDITOR } from '../../services/contanst'
 function uploadImageCallBack(file) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:54978/api/uploadimagev2");
+    xhr.open("POST", `${BASE_URL + UPLOAD_IMAGE_EDITOR}`);
     // xhr.setRequestHeader("Authorization", "Client-ID XXXXX");
-    // xhr.setRequestHeader("Content-Type", "multipart/form-data");
     const data = new FormData();
     data.append("myFile", file);
     xhr.send(data);
@@ -85,7 +85,7 @@ class EditorContainer extends Component {
             history: { inDropdown: true },
             image: {
               uploadCallback: uploadImageCallBack,
-              alt: { present: true, mandatory: true }
+              // alt: { present: true, mandatory: true }
             }
           }}
         />

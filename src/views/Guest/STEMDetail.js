@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Col, Row } from "reactstrap";
 import STEMDetailComponent from "../../components/STEM/STEMDetail";
-import { getSTEMPostById } from '../../services/STEMPostService'
+import { getSTEMPlanById } from '../../services/STEMPlanService';
+import banner from '../../assets/img/STEM2_Final.png'
 export default class STEMDetail extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +12,7 @@ export default class STEMDetail extends Component {
   }
   async componentDidMount() {
     const {stemPostId} = this.props.match.params
-    const sTEMPost = await getSTEMPostById(stemPostId).then(res => res.data);
-    console.log(sTEMPost);
-    
+    const sTEMPost = await getSTEMPlanById(stemPostId).then(res => res.data);
     this.setState({sTEMPostDetail: sTEMPost.Results});
   }
   
@@ -29,6 +28,9 @@ export default class STEMDetail extends Component {
             paddingLeft: 0
           }}
         >
+            <div className="mb-4">
+            <img src={banner}/>
+          </div>
           <Row>
             <Col md={{ size: 8, offset: 2 }}>
               <STEMDetailComponent sTEMPost={this.state.sTEMPostDetail} />

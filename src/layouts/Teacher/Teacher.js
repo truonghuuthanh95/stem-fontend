@@ -9,7 +9,7 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
-import routes from "routes.js";
+import routes from "../../routes/teacherRoutes";
 
 import logo from "../../assets/img/stemlogo.jpg";
 
@@ -63,9 +63,10 @@ class Admin extends React.Component {
   };
   getRoutes = routes => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/admin" && prop.invisible === false) {
+      if (prop.layout === "/teacher") {
         return (
           <Route
+            exact
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}

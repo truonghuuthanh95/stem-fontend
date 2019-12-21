@@ -5,10 +5,6 @@ import classNames from "classnames";
 // reactstrap components
 import {
   Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   NavbarBrand,
   Navbar,
   Nav,
@@ -16,6 +12,7 @@ import {
   NavItem
 } from "reactstrap";
 import { NavLink } from 'react-router-dom'
+import logo from '../../assets/img/react-logo.png';
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
@@ -89,7 +86,9 @@ class AdminNavbar extends React.Component {
                 </button>
               </div>
               <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                {this.props.brandText}
+                {/* {this.props.brandText} */}
+                <img src={logo} width="40" height="40"/>
+                {/* {logo} */}
               </NavbarBrand>
             </div>
             <button
@@ -121,13 +120,13 @@ class AdminNavbar extends React.Component {
                   </Button>
                 </InputGroup> */}
                 <NavItem>
-                  <NavLink activeClassName="text-primary" className="title nav-link" to="/guest/home">
+                  <NavLink activeClassName="text-primary" className="title nav-link" exact to="/guest">
                     <i className="" />
                     Trang Chủ
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink activeClassName="text-primary" className="title nav-link" to="/guest/index">
+                  <NavLink activeClassName="text-primary" className="title nav-link" exact to="/guest/index">
                     <i className="" />
                     Đăng Nhập
                   </NavLink>

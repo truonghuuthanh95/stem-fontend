@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardText
 } from "reactstrap";
-import { getSTEMPlanByTeacher } from "../../services/STEMPlanService";
+import { getSTEMReportByTeacher } from "../../services/STEMReportService";
 import { Link } from "react-router-dom";
 import { IMAGE_BASE_URL } from "../../services/contanst";
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -19,7 +19,8 @@ class Dashboard extends Component {
     };
   }
   async componentDidMount() {
-    const data = await getSTEMPlanByTeacher("213456").then(res => res.data);
+      console.log("báo cáo")
+    const data = await getSTEMReportByTeacher("213456").then(res => res.data);
     this.setState({ sTEMPosts: data.Results });
   }
   deleteSTEMPost = () => {
@@ -46,7 +47,8 @@ class Dashboard extends Component {
     return (
       <>
         <div className="content">
-          <h3 className="title">DASHBOARD</h3>
+          <h3 className="title">BÁO CÁO</h3>
+          <Link to="/teacher/stemplansubmit"><Button color="primary" className="mb-4">TẠO BÁO CÁO</Button></Link> 
           {sTEMPosts.map((s, index) => (
             <Card className="card-user" key={index}>
               <CardBody>

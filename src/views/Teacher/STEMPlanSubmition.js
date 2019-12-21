@@ -13,9 +13,12 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import EditorContainer from "../../components/Editor/Editor";
 import ErrorInput from "../../components/Error/ErrorInput";
-import { createStemPost } from "../../services/STEMPostService";
+import {
+  createStemPlan,
+  uploadSTEMPlanImage
+} from "../../services/STEMPlanService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import { getSTEMPostById } from "../../services/STEMPostService";
+import { sTEMPlanContents } from "../../utils/STEMPlan";
 const ValidationSchema = Yup.object().shape({
   topic: Yup.string()
     .max(100, "Tối đa 200 kí tự")
@@ -26,33 +29,20 @@ const ValidationSchema = Yup.object().shape({
     .required("Vui lòng nhập"),
   avatarPost: Yup.mixed().required("Vui lòng chọn hình ảnh")
 });
-class STEMSubmition extends Component {
+class STEMPlanSubmition extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      postDetail: "",
-      sTEMPost: ""
+      postDetail: ""
     };
   }
-
-  async componentDidMount() {
-      const {stemPostId} = this.props.match.params;
-      if (stemPostId) {
-          const data = await getSTEMPostById(stemPostId).then(res => res.data);
-          this.setState({sTEMPost: data.Results, postDetail: data.Results.PostDetail});
-      }
-  }
-  
 
   handleChangeContents = postDetail => {
     console.log(postDetail);
     this.setState({ postDetail });
   };
+
   render() {
-      const {sTEMPost} = this.state
-      if (!sTEMPost) {
-          return <h1>loading</h1>
-      }
     return (
       <>
         <div className="content">
@@ -62,37 +52,45 @@ class STEMSubmition extends Component {
                 <CardBody>
                   <Formik
                     initialValues={{
-                      topic: this.state.sTEMPost.Topic,
-                      avatarPost: "",
-                      summary: this.state.sTEMPost.Summary
+                      topic: "",
+                      avatarPost: null,
+                      summary: ""
                     }}
                     validationSchema={ValidationSchema}
                     onSubmit={async (values, { setSubmitting }) => {
                       setSubmitting(true);
-                      console.log(this.state.contents);
                       const sTEMPost = {
                         Topic: values.topic,
                         TeacherName: "truong huu thanh",
                         TeacherId: "213456",
                         Summary: values.summary,
                         PostDetail: this.state.postDetail,
-                        SchoolName: "Sở Giáo dục thành phố"
+                        SchoolName: "Sở Giáo dục thành phố",
+                        SchoolId: "123455"
                       };
-                      const res = await createStemPost(sTEMPost).then(
+                      const res = await createStemPlan(sTEMPost).then(
                         res => res.data
                       );
                       if (res.StatusCode === 201) {
-                        Swal.fire({
-                          title: "Lưu bài thành công",
-                          icon: "success",
-                          confirmButtonColor: "#e14eca",
-                          confirmButtonText: "OK",
-                          allowOutsideClick: false
-                        }).then(result => {
-                          if (result.value) {
-                            this.props.history.push("/admin/dashboard");
-                          }
-                        });
+                        const data = new FormData();
+                        data.append("myFile", values.avatarPost);
+                        const uploadImage = await uploadSTEMPlanImage(
+                          res.Results.Id,
+                          data
+                        ).then(res => res.data);
+                        if (uploadImage.StatusCode === 201) {
+                          Swal.fire({
+                            title: "Lưu bài thành công",
+                            icon: "success",
+                            confirmButtonColor: "#e14eca",
+                            confirmButtonText: "OK",
+                            allowOutsideClick: false
+                          }).then(result => {
+                            if (result.value) {
+                              this.props.history.push("/admin/dashboard");
+                            }
+                          });
+                        }
                       }
                     }}
                   >
@@ -102,7 +100,8 @@ class STEMSubmition extends Component {
                       touched,
                       handleChange,
                       handleBlur,
-                      handleSubmit
+                      handleSubmit,
+                      setFieldValue
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <h4 className="title">Tựa đề bài viết</h4>
@@ -143,29 +142,31 @@ class STEMSubmition extends Component {
                           />
                         </FormGroup>
                         <h4 className="title">Ảnh bìa</h4>
-                        <FormGroup>
-                          <Input
+                       
+                        <div className="form-group">
+                          <input
                             style={{ opacity: 1, position: "unset" }}
-                            type="file"
-                            name="avatarPost"
                             id="avatarPost"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.avatarPost}
+                            name="avatarPost"
+                            type="file"
+                            onChange={event => {
+                              setFieldValue(
+                                "avatarPost",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            className="form-control"
                           />
-                          <ErrorInput
+                           <ErrorInput
                             touched={touched.avatarPost}
                             message={errors.avatarPost}
                           />
-                        </FormGroup>
-
+                        </div>
                         <h4 className="title">Nội dung</h4>
-
                         <EditorContainer
                           handleChangeContents={this.handleChangeContents}
-                          contents={this.state.postDetail}
+                          contents={sTEMPlanContents}
                         />
-
                         <Button
                           className="btn-fill"
                           color="primary"
@@ -186,4 +187,4 @@ class STEMSubmition extends Component {
   }
 }
 
-export default STEMSubmition;
+export default STEMPlanSubmition;

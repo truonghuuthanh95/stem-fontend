@@ -5,14 +5,17 @@ import Notifications from "views/Notifications.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import GuestIndex from './views/Guest/Index'
+import GuestIndex from './views/Guest/Login/Index'
 import AdminLogin from './views/Guest/Login/Admin'
 import TeacherDashboard from './views/Teacher/Dashboard'
-import STEMSubmition from './views/Teacher/STEMSubmition'
+import STEMPlanSubmition from './views/Teacher/STEMPlanSubmition'
 import STEMViewDetail from './views/Admin/STEMViewDetail'
 import GuestHome from './views/Guest/Home'
 import GuestSTEMDetail from './views/Guest/STEMDetail'
-import STEMUpdate from './views/Teacher/STEMUpdate'
+import STEMPlanUpdate from './views/Teacher/STEMPlanUpdate'
+import STEMPlan from './views/Admin/STEMPlan'
+import STEMReportSubmition from './views/Teacher/STEMReportSubmition';
+import STEMReportUpdate from './views/Teacher/STEMReportUpdate'
 var routes = [
   // {
   //   path: "/dashboard",
@@ -71,6 +74,14 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/stemplans",
+    name: "KẾ HOẠCH",
+    rtlName: "طباعة",
+    icon: "tim-icons icon-align-center",
+    component: STEMPlan,
+    layout: "/admin"
+  },
+  {
     path: "/index",
     name: "Guest",
     icon: "tim-icons icon-world",
@@ -92,21 +103,35 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/submit",
-    name: "NỘP BÀI LÀM",
-    icon: "tim-icons icon-world",
-    component: STEMSubmition,
-    layout: "/admin"
-  },
-  {
-    path: "/stempostupdate/:stemPostId",
+    path: "/stemplanupdate/:stemPostId",
     name: "CẬP NHẬT STEM",
     icon: "tim-icons icon-world",
-    component: STEMUpdate,
+    component: STEMPlanUpdate,
     layout: "/admin"
   },
   {
-    path: "/viewdetail",
+    path: "/stemplansubmit",
+    name: "NỘP BÀI LÀM",
+    icon: "tim-icons icon-world",
+    component: STEMPlanSubmition,
+    layout: "/admin"
+  },
+  {
+    path: "/stemreportupdate/:stemReportId",
+    name: "CẬP NHẬT STEM",
+    icon: "tim-icons icon-world",
+    component: STEMReportUpdate,
+    layout: "/admin"
+  },
+  {
+    path: "/stemreportsubmit",
+    name: "NỘP BÀI LÀM",
+    icon: "tim-icons icon-world",
+    component: STEMReportSubmition,
+    layout: "/admin"
+  },
+  {
+    path: "/viewdetail/:stemPostId",
     name: "XEM CHI TIET",
     icon: "tim-icons icon-world",
     component: STEMViewDetail,
