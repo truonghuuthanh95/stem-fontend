@@ -6,8 +6,8 @@ import {
   CardBody,
   CardText} from "reactstrap";
 import { Link } from "react-router-dom";
-import logoAdmin from '../../../assets/img/anime6.png';
-import logoTeacher from '../../../assets/img/anime3.png';
+import logoTeacher from '../../../assets/img/anime6.png';
+import logoAdmin from '../../../assets/img/anime3.png';
 export default class Index extends Component {
   constructor(props) {
     super(props);

@@ -115,7 +115,7 @@ class STEMPlanUpdate extends Component {
                           allowOutsideClick: false
                         }).then(result => {
                           if (result.value) {
-                            this.props.history.push("/admin/dashboard");
+                            this.props.history.push("/teacher/stemplans");
                           }
                         });
                       }

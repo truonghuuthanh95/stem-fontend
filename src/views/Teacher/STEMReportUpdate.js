@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import EditorContainer from "../../components/Editor/Editor";
 import ErrorInput from "../../components/Error/ErrorInput";
 import {
-    updateSTEMReport,
+  updateSTEMReport,
   getSTEMReportById
 } from "../../services/STEMReportService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
@@ -39,12 +39,13 @@ class STEMReportUpdate extends Component {
   }
 
   async componentDidMount() {
-    const { stemPostId } = this.props.match.params;
-    if (stemPostId) {
-      const data = await getSTEMReportById(stemPostId).then(res => res.data);
+    const { stemReportId } = this.props.match.params;
+    console.log(stemReportId);
+    if (stemReportId) {
+      const data = await getSTEMReportById(stemReportId).then(res => res.data);
       this.setState({
         sTEMReport: data.Results,
-        reportDetail: data.Results.PostDetail
+        reportDetail: data.Results.ReportDetail
       });
     }
   }
@@ -58,16 +59,11 @@ class STEMReportUpdate extends Component {
     if (!sTEMReport) {
       return (
         <div className="content">
-          <p className="text-center">
-            {" "}
-            <div>
-              <Card>
-                <CardBody>
-                  <Spinner color="primary" />
-                </CardBody>
-              </Card>
-            </div>
-          </p>
+          <Card>
+            <CardBody>
+              <Spinner color="primary" />
+            </CardBody>
+          </Card>
         </div>
       );
     }
@@ -93,7 +89,7 @@ class STEMReportUpdate extends Component {
                         TeacherName: "truong huu thanh",
                         TeacherId: "213456",
                         Summary: values.summary,
-                        PostDetail: this.state.postDetail,
+                        ReportDetail: this.state.reportDetail,
                         SchoolName: "Sở Giáo dục thành phố"
                       };
                       const { stemReportId } = this.props.match.params;
@@ -110,7 +106,7 @@ class STEMReportUpdate extends Component {
                           allowOutsideClick: false
                         }).then(result => {
                           if (result.value) {
-                            this.props.history.push("/admin/dashboard");
+                            this.props.history.push("/teacher/stemreports");
                           }
                         });
                       }
@@ -122,7 +118,8 @@ class STEMReportUpdate extends Component {
                       touched,
                       handleChange,
                       handleBlur,
-                      handleSubmit
+                      handleSubmit,
+                      setFieldValue
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <h4 className="title">Tựa đề bài viết</h4>
@@ -163,27 +160,31 @@ class STEMReportUpdate extends Component {
                           />
                         </FormGroup>
                         <h4 className="title">Ảnh bìa</h4>
-                        <FormGroup>
-                          <Input
+                        <div className="form-group">
+                          <input
                             style={{ opacity: 1, position: "unset" }}
-                            type="file"
-                            name="avatarPost"
                             id="avatarPost"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.avatarPost}
+                            name="avatarPost"
+                            type="file"
+                            onChange={event => {
+                              setFieldValue(
+                                "avatarPost",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            className="form-control"
                           />
                           <ErrorInput
                             touched={touched.avatarPost}
                             message={errors.avatarPost}
                           />
-                        </FormGroup>
+                        </div>
 
                         <h4 className="title">Nội dung</h4>
 
                         <EditorContainer
                           handleChangeContents={this.handleChangeContents}
-                          contents={this.state.postDetail}
+                          contents={this.state.reportDetail}
                         />
 
                         <Button

@@ -20,3 +20,8 @@ export const GET_STEM_REPORTS_BY_ID = 'getstemreport';
 export const CREATE_COMMENT_STEM_REPORT = 'commentstemreportbyadmin';
 export const GET_STEMREPORT_STATUS = 'getstemstatus';
 export const UPDATE_STEM_REPORT = 'updatestemreport';
+//GUEST
+export const LOGIN = 'login';
+//LOCAL STORAGE
+export const TEACHER = 'teacher'
+export const ADMIN = 'admin'

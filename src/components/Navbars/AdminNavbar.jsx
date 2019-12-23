@@ -9,21 +9,30 @@ import {
   Navbar,
   Nav,
   Container,
-  NavItem
+  NavItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu
 } from "reactstrap";
 import { NavLink } from 'react-router-dom'
-import logo from '../../assets/img/react-logo.png';
+import logo from '../../assets/img/logoso.png';
+import { TEACHER, ADMIN } from '../../services/contanst';
 class AdminNavbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent"
+      color: "navbar-transparent",
+      teacher: null,
+      admin: null,
     };
   }
   componentDidMount() {
     window.addEventListener("resize", this.updateColor);
+    const teacher = localStorage.getItem(TEACHER)
+    this.setState({teacher})
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateColor);
@@ -125,12 +134,39 @@ class AdminNavbar extends React.Component {
                     Trang Chủ
                   </NavLink>
                 </NavItem>
-                <NavItem>
+                {!this.state.teacher?  <NavItem>
                   <NavLink activeClassName="text-primary" className="title nav-link" exact to="/guest/index">
                     <i className="" />
                     Đăng Nhập
                   </NavLink>
-                </NavItem>
+                </NavItem> : <UncontrolledDropdown nav>
+                  <DropdownToggle
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
+                    nav
+                    onClick={e => e.preventDefault()}
+                  >
+                    <div className="photo">
+                      <img alt="..." src={require("assets/img/anime3.png")} />
+                    </div>
+                    <b className="caret d-none d-lg-block d-xl-block" />
+                    <p className="d-lg-none">Log out</p>
+                  </DropdownToggle>
+                  <DropdownMenu className="dropdown-navbar" right tag="ul">
+                    <NavLink tag="li" to="/">
+                      <DropdownItem className="nav-item">Profile</DropdownItem>
+                    </NavLink>
+                    <NavLink tag="li" to="/">
+                      <DropdownItem className="nav-item">Settings</DropdownItem>
+                    </NavLink>
+                    <DropdownItem divider tag="li" />
+                    <NavLink tag="li" to="/">
+                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                    </NavLink>
+                  </DropdownMenu>
+                </UncontrolledDropdown>}
+               
                 {/* <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
@@ -170,33 +206,8 @@ class AdminNavbar extends React.Component {
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown> */}
-                {/* <UncontrolledDropdown nav>
-                  <DropdownToggle
-                    caret
-                    color="default"
-                    data-toggle="dropdown"
-                    nav
-                    onClick={e => e.preventDefault()}
-                  >
-                    <div className="photo">
-                      <img alt="..." src={require("assets/img/anime3.png")} />
-                    </div>
-                    <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">Log out</p>
-                  </DropdownToggle>
-                  <DropdownMenu className="dropdown-navbar" right tag="ul">
-                    <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Profile</DropdownItem>
-                    </NavLink>
-                    <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Settings</DropdownItem>
-                    </NavLink>
-                    <DropdownItem divider tag="li" />
-                    <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
-                    </NavLink>
-                  </DropdownMenu>
-                </UncontrolledDropdown> */}
+             
+                
                 <li className="separator d-lg-none" />
               </Nav>
             </Collapse>

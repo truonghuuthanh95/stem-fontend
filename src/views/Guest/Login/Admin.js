@@ -54,7 +54,7 @@ class Admin extends Component {
                       className="avatar"
                       src={require("assets/img/anime3.png")}
                     />
-                    <h3 className="title">GIÁO VIÊN</h3>
+                    <h3 className="title">CÁN BỘ QUẢN LÝ</h3>
                   </a>
                 </div>
                 <Col sm={{ size: 8, offset: 2 }}>

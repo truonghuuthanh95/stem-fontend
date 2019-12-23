@@ -40,7 +40,7 @@ export const updateSTEMReport = (id, data) => {
 
 export const uploadSTEMReportImage = (id, data) => {
   return axios.post(
-    `${BASE_URL + UPLOAD_IMAGE_STEM_REPORT}?sTEMPlanId=${id},`,
+    `${BASE_URL + UPLOAD_IMAGE_STEM_REPORT}?sTEMReportId=${id}`,
     data
   );
 };

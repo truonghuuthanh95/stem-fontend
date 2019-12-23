@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import { Row, Col, Media, Card, CardBody, CardText, Button } from "reactstrap";
+import { Row, Col, Media, Card, CardBody, CardText, Button, Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { getSTEMPlans } from "../../services/STEMPlanService";
 import { Link } from "react-router-dom";
 import banner from "../../assets/img/STEM2_Final.png";
@@ -34,12 +34,22 @@ export default class Home extends Component {
           <div className="mb-4">
             <img src={banner} />
           </div>
+         
           <Row>
             <Col md={{ size: 8, offset: 2 }}>
-              <h2 className="title">Bài viết</h2>
+              <h2 className="title">Nội Dung</h2>
               <h4>
+              <NavLink
+                  exact
+                  to="/guest"
+                  activeClassName="text-primary"
+                  className="title"
+                >
+                  Tất cả
+                </NavLink>{" "}/{" "}
                 <NavLink
-                  to="/"
+                  exact
+                  to="/guest"
                   activeClassName="text-primary"
                   className="title"
                 >
@@ -47,11 +57,12 @@ export default class Home extends Component {
                 </NavLink>{" "}
                 /{" "}
                 <NavLink
+                  exact
                   to="/"
                   activeClassName="text-primary"
                   className="title"
                 >
-                  Kế hoạch
+                  Báo cáo
                 </NavLink>
               </h4>
               {sTEMPosts.map((s, index) => (

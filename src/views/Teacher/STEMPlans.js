@@ -47,7 +47,11 @@ class Dashboard extends Component {
       <>
         <div className="content">
           <h3 className="title">KẾ HOẠCH</h3>
-          <Link to="/teacher/stemplansubmit"><Button color="primary" className="mb-4">TẠO KẾ HOẠCH</Button></Link> 
+          <Link to="/teacher/stemplansubmit">
+            <Button color="primary" className="mb-4">
+              TẠO KẾ HOẠCH
+            </Button>
+          </Link>
           {sTEMPosts.map((s, index) => (
             <Card className="card-user" key={index}>
               <CardBody>

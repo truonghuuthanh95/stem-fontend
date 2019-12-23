@@ -18,7 +18,7 @@ import {
   uploadSTEMReportImage
 } from "../../services/STEMReportService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import { sTEMPlanContents } from "../../utils/STEMPlan";
+import { sTEMPReportContens } from "../../utils/STEMPlan";
 const ValidationSchema = Yup.object().shape({
   topic: Yup.string()
     .max(100, "Tối đa 200 kí tự")
@@ -64,7 +64,7 @@ class STEMReportSubmition extends Component {
                         TeacherName: "truong huu thanh",
                         TeacherId: "213456",
                         Summary: values.summary,
-                        PostDetail: this.state.postDetail,
+                        ReportDetail: this.state.reportDetail,
                         SchoolName: "Sở Giáo dục thành phố",
                         SchoolId: "123455"
                       };
@@ -87,7 +87,7 @@ class STEMReportSubmition extends Component {
                             allowOutsideClick: false
                           }).then(result => {
                             if (result.value) {
-                              this.props.history.push("/admin/dashboard");
+                              this.props.history.push("/teacher/stemreports");
                             }
                           });
                         }
@@ -100,7 +100,8 @@ class STEMReportSubmition extends Component {
                       touched,
                       handleChange,
                       handleBlur,
-                      handleSubmit
+                      handleSubmit,
+                      setFieldValue
                     }) => (
                       <Form onSubmit={handleSubmit}>
                         <h4 className="title">Tựa đề bài viết</h4>
@@ -141,26 +142,31 @@ class STEMReportSubmition extends Component {
                           />
                         </FormGroup>
                         <h4 className="title">Ảnh bìa</h4>
-                        <FormGroup>
-                          <Input
+                        
+                        <div className="form-group">
+                          <input
                             style={{ opacity: 1, position: "unset" }}
-                            type="file"
-                            name="avatarPost"
                             id="avatarPost"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.avatarPost}
+                            name="avatarPost"
+                            type="file"
+                            onChange={event => {
+                              setFieldValue(
+                                "avatarPost",
+                                event.currentTarget.files[0]
+                              );
+                            }}
+                            className="form-control"
                           />
-                          <ErrorInput
+                           <ErrorInput
                             touched={touched.avatarPost}
                             message={errors.avatarPost}
                           />
-                        </FormGroup>
+                        </div>
 
                         <h4 className="title">Nội dung</h4>
                         <EditorContainer
                           handleChangeContents={this.handleChangeContents}
-                          contents={sTEMPlanContents}
+                          contents={sTEMPReportContens}
                         />
                         <Button
                           className="btn-fill"
