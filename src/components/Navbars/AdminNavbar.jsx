@@ -15,7 +15,7 @@ import {
   DropdownItem,
   DropdownMenu
 } from "reactstrap";
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import logo from '../../assets/img/logoso.png';
 import { TEACHER, ADMIN } from '../../services/contanst';
 class AdminNavbar extends React.Component {
@@ -70,6 +70,10 @@ class AdminNavbar extends React.Component {
       modalSearch: !this.state.modalSearch
     });
   };
+  handleLogout = () =>{
+    localStorage.clear();
+    this.props.history.push("/guest/index");
+  }
   render() {
     return (
       <>
@@ -96,7 +100,7 @@ class AdminNavbar extends React.Component {
               </div>
               <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
                 {/* {this.props.brandText} */}
-                <img src={logo} width="40" height="40"/>
+                <img src={logo} width="70" height="70"/>
                 {/* {logo} */}
               </NavbarBrand>
             </div>
@@ -155,14 +159,14 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Profile</DropdownItem>
+                      <DropdownItem className="nav-item">Dashboard</DropdownItem>
                     </NavLink>
                     <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Settings</DropdownItem>
+                      <DropdownItem className="nav-item">Thông tin cá nhân</DropdownItem>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <DropdownItem className="nav-item" onClick={this.handleLogout}>Log out</DropdownItem>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>}

@@ -14,7 +14,7 @@ class Footer extends React.Component {
               <NavLink href="#">Creative Tim</NavLink>
             </NavItem> */}
             <NavItem>
-              <NavLink href="#">About Us</NavLink>
+              <NavLink href="#"><img alt="unicef" height="50" width="50" src={require("../../assets/img/unicef.png")} /></NavLink>
             </NavItem>
             {/* <NavItem>
               <NavLink href="#">Blog</NavLink>
@@ -27,7 +27,7 @@ class Footer extends React.Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Trương Hữu Thành
+              GDTrH Sớ GD&ĐT TP.HCM
             </a>{" "}
            
           </div>

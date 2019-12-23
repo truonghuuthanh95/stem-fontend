@@ -58,6 +58,7 @@ class Sidebar extends React.Component {
           <a
             href={logo.outterLink}
             className="simple-text logo-normal"
+            style={{fontSize: 40}}
             
             onClick={this.props.toggleSidebar}
           >

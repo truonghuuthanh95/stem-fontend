@@ -29,9 +29,10 @@ ReactDOM.render(
       <Route
         path="/teacher"
         render={props => {
-          console.log(localStorage.getItem(TEACHER))
+          const user = JSON.parse(localStorage.getItem(TEACHER));
+          const newProps = {...props, user};
           if (localStorage.getItem(TEACHER)) {
-            return <TeacherLayout {...props} />;
+            return <TeacherLayout {...newProps} />;
           }
           return <Redirect to="/guest/index" />;
         }}

@@ -11,6 +11,7 @@ import { getSTEMReportByTeacher } from "../../services/STEMReportService";
 import { Link } from "react-router-dom";
 import { IMAGE_BASE_URL } from "../../services/contanst";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { TEACHER } from '../../services/contanst'
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +20,8 @@ class Dashboard extends Component {
     };
   }
   async componentDidMount() {
-      console.log("báo cáo")
-    const data = await getSTEMReportByTeacher("213456").then(res => res.data);
+    const user = JSON.parse(localStorage.getItem(TEACHER))
+    const data = await getSTEMReportByTeacher(user.GiaoVienID).then(res => res.data);
     this.setState({ sTEMPosts: data.Results });
   }
   deleteSTEMPost = () => {

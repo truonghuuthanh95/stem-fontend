@@ -19,6 +19,9 @@ import {
   getSTEMReportById
 } from "../../services/STEMReportService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { TEACHER } from "../../services/contanst";
+import * as moment from "moment";
+
 const ValidationSchema = Yup.object().shape({
   topic: Yup.string()
     .max(100, "Tối đa 200 kí tự")
@@ -78,19 +81,28 @@ class STEMReportUpdate extends Component {
                     initialValues={{
                       topic: this.state.sTEMReport.Topic,
                       avatarPost: "",
-                      summary: this.state.sTEMReport.Summary
+                      summary: this.state.sTEMReport.Summary,
+                      studentQuantity: this.state.sTEMReport.StudentQuantity,
+                      date: moment(this.state.sTEMReport.OperationTime).format(
+                        "YYYY-MM-DD"
+                      ),
+                      budget: this.state.sTEMReport.Budget
                     }}
                     validationSchema={ValidationSchema}
                     onSubmit={async (values, { setSubmitting }) => {
                       setSubmitting(true);
-                      console.log(this.state.contents);
+                      const user = JSON.parse(localStorage.getItem(TEACHER));
                       const sTEMReport = {
                         Topic: values.topic,
-                        TeacherName: "truong huu thanh",
-                        TeacherId: "213456",
+                        TeacherName: `${user.Ho} ${user.Ten}`,
+                        TeacherId: user.GiaoVienID,
                         Summary: values.summary,
                         ReportDetail: this.state.reportDetail,
-                        SchoolName: "Sở Giáo dục thành phố"
+                        SchoolName: "Sở Giáo dục thành phố",
+                        SchoolId: "123455",
+                        StudentQuantity: values.studentQuantity,
+                        OperationTime: values.date,
+                        Budget: values.budget
                       };
                       const { stemReportId } = this.props.match.params;
                       const res = await updateSTEMReport(
@@ -122,7 +134,7 @@ class STEMReportUpdate extends Component {
                       setFieldValue
                     }) => (
                       <Form onSubmit={handleSubmit}>
-                        <h4 className="title">Tựa đề bài viết</h4>
+                        <h4 className="title">Tên hoạt động</h4>
                         <FormGroup>
                           <Input
                             type="text"
@@ -139,7 +151,7 @@ class STEMReportUpdate extends Component {
                         </FormGroup>
 
                         <h4 className="title">
-                          Mô tả nội dung sẽ trình bày{" "}
+                          Tóm tắt nội dung sẽ trình bày{" "}
                           <small className="text-muted">
                             <i>nhỏ hơn 200 kí tự</i>
                           </small>
@@ -179,7 +191,65 @@ class STEMReportUpdate extends Component {
                             message={errors.avatarPost}
                           />
                         </div>
-
+                        <Row>
+                          <Col sm="3">
+                            <h4 className="title">
+                              Số lượng học sinh tham gia
+                            </h4>
+                            <FormGroup>
+                              <Input
+                                type="number"
+                                name="studentQuantity"
+                                id="studentQuantity"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.studentQuantity}
+                              />
+                              <ErrorInput
+                                touched={touched.studentQuantity}
+                                message={errors.studentQuantity}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm="3">
+                            <h4 className="title">Ngày tổ chức</h4>
+                            <FormGroup>
+                              <Input
+                                type="date"
+                                name="date"
+                                id="date"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.date}
+                              />
+                              <ErrorInput
+                                touched={touched.date}
+                                message={errors.date}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm="3">
+                            <h4 className="title">Kinh phí tổ chức</h4>
+                            <FormGroup>
+                              <Input
+                                type="number"
+                                name="budget"
+                                id="budget"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.budget}
+                              />
+                              <ErrorInput
+                                touched={touched.budget}
+                                message={errors.budget}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
                         <h4 className="title">Nội dung</h4>
 
                         <EditorContainer

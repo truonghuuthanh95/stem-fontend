@@ -42,24 +42,22 @@ export default class Home extends Component {
               <NavLink
                   exact
                   to="/guest"
-                  activeClassName="text-primary"
+                  // activeClassName="text-primary"
                   className="title"
                 >
                   Tất cả
-                </NavLink>{" "}/{" "}
+                </NavLink>{" "}|{" "}
                 <NavLink
                   exact
-                  to="/guest"
-                  activeClassName="text-primary"
+                  to="/guest"               
                   className="title"
                 >
                   Kế hoạch
                 </NavLink>{" "}
-                /{" "}
+                |{" "}
                 <NavLink
                   exact
-                  to="/"
-                  activeClassName="text-primary"
+                  to="/"                
                   className="title"
                 >
                   Báo cáo

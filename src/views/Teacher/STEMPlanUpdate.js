@@ -20,6 +20,7 @@ import {
   uploadSTEMPlanImage
 } from "../../services/STEMPlanService";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import { TEACHER } from '../../services/contanst'
 const ValidationSchema = Yup.object().shape({
   topic: Yup.string()
     .max(100, "Tối đa 200 kí tự")
@@ -85,10 +86,11 @@ class STEMPlanUpdate extends Component {
                     validationSchema={ValidationSchema}
                     onSubmit={async (values, { setSubmitting }) => {
                       setSubmitting(true);
+                      const user = JSON.parse(localStorage.getItem(TEACHER))
                       const sTEMPost = {
                         Topic: values.topic,
-                        TeacherName: "truong huu thanh",
-                        TeacherId: "213456",
+                        TeacherName: `${user.Ho} ${user.Ten}`,
+                        TeacherId: user.GiaoVienID,
                         Summary: values.summary,
                         PostDetail: this.state.postDetail,
                         SchoolName: "Sở Giáo dục thành phố",
