@@ -1,5 +1,7 @@
-export const BASE_URL = 'http://localhost:54978/api/';
-export const IMAGE_BASE_URL = 'http://localhost:54978/Content/Images/'
+// export const BASE_URL = 'http://localhost:54978/api/';
+// export const IMAGE_BASE_URL = 'http://localhost:54978/Content/Images/'
+export const BASE_URL = 'http://120.72.117.81:8089//api/';
+export const IMAGE_BASE_URL = 'http://120.72.117.81:8089/Content/Images/'
 //UPLOAD IMAGE
 export const UPLOAD_IMAGE_EDITOR = 'uploadimage';
 export const UPLOAD_IMAGE_STEM_PLAN = 'uploadstemplanimage';

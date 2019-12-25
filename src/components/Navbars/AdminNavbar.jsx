@@ -100,7 +100,7 @@ class AdminNavbar extends React.Component {
               </div>
               <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
                 {/* {this.props.brandText} */}
-                <img src={logo} width="70" height="70"/>
+                <img src={logo} width="100" height="100"/>
                 {/* {logo} */}
               </NavbarBrand>
             </div>
@@ -159,7 +159,7 @@ class AdminNavbar extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li" to="/">
-                      <DropdownItem className="nav-item">Dashboard</DropdownItem>
+                      <DropdownItem className="nav-item"><Link to="/teacher/dashboard"> Dashboard</Link></DropdownItem>
                     </NavLink>
                     <NavLink tag="li" to="/">
                       <DropdownItem className="nav-item">Thông tin cá nhân</DropdownItem>

@@ -14,7 +14,7 @@ class Footer extends React.Component {
               <NavLink href="#">Creative Tim</NavLink>
             </NavItem> */}
             <NavItem>
-              <NavLink href="#"><img alt="unicef" height="50" width="50" src={require("../../assets/img/unicef.png")} /></NavLink>
+              <NavLink href="#"><img alt="unicef" height="70" width="70" src={require("../../assets/img/unicef.png")} /></NavLink>
             </NavItem>
             {/* <NavItem>
               <NavLink href="#">Blog</NavLink>
